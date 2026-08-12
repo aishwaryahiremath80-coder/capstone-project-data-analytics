@@ -1,0 +1,120 @@
+import pandas as pd
+
+import numpy as np
+
+import matplotlib.pyplot as plt
+
+import seaborn as sns
+
+ 
+
+# Load the dataset
+
+data = pd.read_csv("cc_data.csv")  # Replace "your_dataset.csv" with the path to your dataset
+
+# dropping index column
+
+data=data.drop(columns='index')
+
+# Dimensions of the dataset
+
+print("Dimensions of the dataset:", data.shape)
+
+# Unique values in each categorical variable
+
+unique_values = data.select_dtypes(include=['object']).nunique()
+
+print("Unique values in each categorical variable:")
+
+print(unique_values)
+
+# Distribution of numerical variables
+
+numerical_summary = data.describe()
+
+print("Distribution of numerical variables:")
+
+numerical_summary
+
+# Missing values in the dataset
+
+missing_values = data.isnull().sum()
+
+print("Missing values in the dataset:")
+
+print(missing_values)
+
+# Summary statistics for numerical variables as well as categorical values
+
+summary_statistics = data.describe(include='all')
+
+print("Summary statistics for numerical variables and categorical values:")
+
+summary_statistics
+
+# Correlation between numerical variables
+
+correlation_matrix = data.select_dtypes([float,int]).corr()
+
+print("Correlation between numerical variables:")
+
+correlation_matrix
+
+# How does the distribution of a amt differ across is_fraud categories?
+
+sns.boxplot(x='is_fraud', y='amt', data=data)
+
+plt.show()
+
+# Outliers in numerical variables
+
+sns.boxplot(data=data[['amt']])
+
+plt.show()
+
+ 
+
+sns.boxplot(data=data[['city_pop']])
+
+plt.show()
+
+
+# distribution of  amt and city_pop
+sns.boxplot(x='city_pop',y='amt',data=data)
+plt.show()
+
+
+# number of frauds transactions
+ fraud=data.loc[data["is_fraud"]==1]
+
+# number of non_fraud transactions
+ non_fraud=data.loc[data["is_fraud"]==0]
+
+# finding out data skewed to which side for numerical variable(amt)
+  data["amt'].skew()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
